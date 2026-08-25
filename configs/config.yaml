@@ -1,0 +1,36 @@
+# RAG Sentinel Configuration
+
+pipeline:
+  embedding_model: "all-MiniLM-L6-v2"   # Change to bge-large for better quality
+  vector_store: "chroma"                  # chroma | faiss | qdrant
+  chroma_path: "./chroma_db"
+  top_k: 5
+  llm_model: "llama3.2"
+  ollama_host: "http://localhost:11434"
+
+chunking:
+  chunk_size: 400          # tokens
+  chunk_overlap: 60        # ~15% of chunk_size
+  splitter: "recursive"    # recursive | semantic
+
+detection:
+  # Risk score thresholds
+  pass_threshold: 0.3
+  flag_threshold: 0.7
+  # Anomaly detector
+  anomaly_method: "mahalanobis"   # mahalanobis | isolation_forest | lof | svdd
+  anomaly_weight: 0.35
+  # Content screener
+  screener_model: "cross-encoder/nli-deberta-v3-small"
+  screener_weight: 0.40
+  # Consistency checker
+  consistency_weight: 0.25
+  consistency_top_k: 5
+  # Meta-classifier (replaces weights above when trained)
+  use_meta_classifier: false
+  meta_classifier_path: "./models/meta_classifier.pkl"
+
+logging:
+  level: "INFO"
+  log_file: "./logs/sentinel.log"
+  structured: true

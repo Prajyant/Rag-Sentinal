@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag-sentinel"
+version = "0.1.0"
+description = "Security layer for detecting malicious and poisoned documents in RAG pipelines"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    # Core RAG
+    "langchain>=0.2.0",
+    "langchain-community>=0.2.0",
+    # Embeddings
+    "sentence-transformers>=2.7.0",
+    # Vector store
+    "chromadb>=0.5.0",
+    # LLM serving
+    "ollama>=0.3.0",
+    # Document loaders
+    "pypdf>=4.0.0",
+    "beautifulsoup4>=4.12.0",
+    # Detection — ML
+    "scikit-learn>=1.4.0",
+    "xgboost>=2.0.0",
+    "numpy>=1.26.0",
+    "scipy>=1.13.0",
+    # Detection — NLP
+    "transformers>=4.40.0",
+    # API
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.29.0",
+    "pydantic>=2.6.0",
+    # Dashboard
+    "streamlit>=1.35.0",
+    # Eval & logging
+    "pandas>=2.2.0",
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
+    "tqdm>=4.66.0",
+    "loguru>=0.7.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.3.2",
+    "pytest-asyncio==0.23.8",
+    "black==24.8.0",
+    "ruff==0.6.1",
+    "mypy==1.11.1",
+]
+
+[project.scripts]
+rag-sentinel = "rag_sentinel.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "description": "Metadata for adversarially-generated test samples",
+  "attack_categories": [
+    "prompt_injection_direct",
+    "prompt_injection_delayed",
+    "hidden_payload_unicode",
+    "hidden_payload_html",
+    "semantic_poisoning",
+    "corpus_contamination",
+    "metadata_spoofing",
+    "retrieval_boosting"
+  ],
+  "stealth_tiers": {
+    "obvious": "Injection payload is clearly visible and machine-readable",
+    "moderate": "Payload requires some inspection to detect",
+    "imperceptible": "Payload is near-undetectable without specialized tools"
+  },
+  "samples": []
+}

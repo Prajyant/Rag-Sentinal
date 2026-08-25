@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  sentinel-api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./configs:/app/configs
+      - chroma_data:/app/chroma_db
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - CHROMA_PATH=/app/chroma_db
+    depends_on:
+      - ollama
+
+  sentinel-dashboard:
+    build: .
+    command: streamlit run src/rag_sentinel/dashboard/app.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - chroma_data:/app/chroma_db
+    depends_on:
+      - sentinel-api
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  chroma_data:
+  ollama_data:
